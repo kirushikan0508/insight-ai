@@ -18,9 +18,9 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function BarChartCard({ chart }: { chart: ChartData }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card">
-      <h3 className="text-sm font-semibold text-white mb-1">{chart.title}</h3>
-      <p className="text-xs mb-4" style={{ color: 'var(--color-text-muted)' }}>{chart.description}</p>
+    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card w-full">
+      <h3 className="text-sm font-semibold text-white mb-1 text-center">{chart.title}</h3>
+      <p className="text-xs mb-4 text-center" style={{ color: 'var(--color-text-muted)' }}>{chart.description}</p>
       <ResponsiveContainer width="100%" height={280}>
         <BarChart data={chart.data} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.08)" />

@@ -8,9 +8,9 @@ interface Props {
 export default function ConfusionMatrix({ matrix, labels }: Props) {
   const max = Math.max(...matrix.flat())
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card">
-      <h3 className="text-sm font-semibold text-white mb-1">Confusion Matrix</h3>
-      <p className="text-xs mb-4" style={{ color: 'var(--color-text-muted)' }}>Predicted vs Actual class labels</p>
+    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card w-full">
+      <h3 className="text-sm font-semibold text-white mb-1 text-center">Confusion Matrix</h3>
+      <p className="text-xs mb-4 text-center" style={{ color: 'var(--color-text-muted)' }}>Predicted vs Actual class labels</p>
       <div className="flex justify-center">
         <div>
           <div className="flex">

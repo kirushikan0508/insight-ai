@@ -14,16 +14,16 @@ export default function CleaningSummary({ data }: Props) {
 
   return (
     <section className="section">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <Sparkles className="w-6 h-6" style={{ color: '#10b981' }} />
-            <h2 className="section-title">Data Cleaning Summary</h2>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Sparkles className="w-8 h-8" style={{ color: '#10b981' }} />
+            <h2 className="section-title !mb-0">Data Cleaning Summary</h2>
           </div>
           <p className="section-subtitle">Automatic data preprocessing applied to your dataset</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 w-full max-w-6xl mx-auto" style={{ gap: '32px', marginBottom: '48px' }}>
           {stats.map((s, i) => (
             <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="stat-card">
@@ -33,8 +33,8 @@ export default function CleaningSummary({ data }: Props) {
           ))}
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card">
-          <h3 className="text-lg font-semibold mb-4">Actions Performed</h3>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card max-w-6xl mx-auto w-full">
+          <h3 className="text-lg font-semibold mb-4 text-white text-center">Actions Performed</h3>
           <div className="space-y-3">
             {data.actions.map((action, i) => (
               <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}

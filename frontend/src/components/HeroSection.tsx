@@ -57,7 +57,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-lg sm:text-xl max-w-3xl mx-auto mb-12"
+          className="text-lg sm:text-xl max-w-3xl mx-auto mb-24"
           style={{ color: 'var(--color-text-secondary)' }}
         >
           Automatic analytics, visualizations, predictions, and forecasting
@@ -69,66 +69,30 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
+          className="mt-12 mb-28 flex justify-center"
         >
-          <a
+          {/* <a
             href="#upload"
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl text-white font-semibold text-base transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center justify-center gap-4 min-w-[280px] sm:min-w-[360px] py-6 px-12 rounded-full text-white font-extrabold text-lg sm:text-xl tracking-wider uppercase transition-all duration-500 hover:scale-110 shadow-2xl border-2 border-white/20 hover:border-white/40"
             style={{
-              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-              boxShadow: '0 4px 30px rgba(99, 102, 241, 0.3)',
+              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4)',
+              backgroundSize: '200% auto',
+              boxShadow: '0 12px 40px rgba(139, 92, 246, 0.5), 0 0 20px rgba(6, 182, 212, 0.3)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundPosition = 'right center';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundPosition = 'left center';
             }}
           >
-            <Upload className="w-5 h-5" />
+            <Upload className="w-6 h-6 animate-bounce" />
             Upload Dataset
-          </a>
+          </a> */}
         </motion.div>
 
-        {/* Feature pills */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-3 mt-16"
-        >
-          {[
-            { icon: BarChart3, label: 'Auto Visualizations' },
-            { icon: Brain, label: 'ML Predictions' },
-            { icon: TrendingUp, label: 'Forecasting' },
-            { icon: Sparkles, label: 'AI Insights' },
-          ].map(({ icon: Icon, label }) => (
-            <div
-              key={label}
-              className="flex items-center gap-2 px-4 py-2 rounded-full"
-              style={{
-                background: 'rgba(26, 26, 46, 0.6)',
-                border: '1px solid rgba(148, 163, 184, 0.1)',
-              }}
-            >
-              <Icon className="w-4 h-4" style={{ color: '#8b5cf6' }} />
-              <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-                {label}
-              </span>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div
-          className="w-6 h-10 rounded-full flex items-start justify-center pt-2"
-          style={{ border: '2px solid rgba(148, 163, 184, 0.2)' }}
-        >
-          <div
-            className="w-1.5 h-3 rounded-full"
-            style={{ background: 'var(--color-accent-purple)' }}
-          />
-        </div>
-      </motion.div>
     </section>
   )
 }

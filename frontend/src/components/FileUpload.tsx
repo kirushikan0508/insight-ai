@@ -30,16 +30,16 @@ export default function FileUpload({ onUpload, isUploading }: FileUploadProps) {
     if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0])
   }, [handleFile])
 
-  const formatSize = (b: number) => b < 1024 ? b + ' B' : b < 1048576 ? (b/1024).toFixed(1)+' KB' : (b/1048576).toFixed(1)+' MB'
+  const formatSize = (b: number) => b < 1024 ? b + ' B' : b < 1048576 ? (b / 1024).toFixed(1) + ' KB' : (b / 1048576).toFixed(1) + ' MB'
 
   return (
     <section id="upload" className="section">
-      <div className="max-w-3xl mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="section-title gradient-text">Upload Your Dataset</h2>
-          <p className="section-subtitle mx-auto mt-2">Drop a CSV or Excel file to begin automatic analysis</p>
+          <p className="section-subtitle">Drop a CSV or Excel file to begin automatic analysis</p>
         </motion.div>
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+        <motion.div className="flex justify-center w-full" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
           <div className={`upload-zone ${isDragOver ? 'drag-over' : ''}`}
             onDrop={handleDrop} onDragOver={(e) => { e.preventDefault(); setIsDragOver(true) }}
             onDragLeave={() => setIsDragOver(false)} onClick={() => inputRef.current?.click()}>

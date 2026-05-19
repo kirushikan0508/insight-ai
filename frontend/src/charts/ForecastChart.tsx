@@ -12,9 +12,9 @@ export default function ForecastChart({ data, title }: { data: ForecastPoint[]; 
   }))
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card">
-      <h3 className="text-sm font-semibold text-white mb-1">{title || 'Forecast'}</h3>
-      <p className="text-xs mb-4" style={{ color: 'var(--color-text-muted)' }}>Predicted values with confidence intervals</p>
+    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card w-full">
+      <h3 className="text-sm font-semibold text-white mb-1 text-center">{title || 'Forecast'}</h3>
+      <p className="text-xs mb-4 text-center" style={{ color: 'var(--color-text-muted)' }}>Predicted values with confidence intervals</p>
       <ResponsiveContainer width="100%" height={320}>
         <ComposedChart data={chartData} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(148,163,184,0.08)" />

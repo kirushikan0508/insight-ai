@@ -23,18 +23,18 @@ export default function MLPredictions({ columns, onTrain, result, isTraining }: 
 
   return (
     <section id="ml-models" className="section">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <Brain className="w-6 h-6" style={{ color: '#8b5cf6' }} />
-            <h2 className="section-title">Machine Learning Predictions</h2>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Brain className="w-8 h-8" style={{ color: '#8b5cf6' }} />
+            <h2 className="section-title !mb-0">Machine Learning Predictions</h2>
           </div>
           <p className="section-subtitle">Select a target column to auto-train and compare ML models</p>
         </motion.div>
 
         {/* Target selector */}
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card mb-8 max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4">
             <div className="flex items-center gap-2">
               <Target className="w-5 h-5" style={{ color: '#8b5cf6' }} />
               <span className="font-medium text-white text-sm">Target Column:</span>
@@ -71,7 +71,7 @@ export default function MLPredictions({ columns, onTrain, result, isTraining }: 
               </div>
 
               {/* Model comparison */}
-              <div className="card mb-6">
+              <div className="card mb-6 max-w-5xl mx-auto">
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                   <Trophy className="w-5 h-5" style={{ color: '#f59e0b' }} /> Model Comparison
                 </h3>
@@ -92,7 +92,7 @@ export default function MLPredictions({ columns, onTrain, result, isTraining }: 
               </div>
 
               {/* Charts */}
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 {result.feature_importance.length > 0 && <FeatureImportanceChart data={result.feature_importance} />}
                 {result.confusion_matrix && <ConfusionMatrix matrix={result.confusion_matrix} labels={result.class_labels} />}
               </div>

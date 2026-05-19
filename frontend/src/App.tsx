@@ -118,7 +118,7 @@ export default function App() {
       {/* Processing indicator */}
       <AnimatePresence>
         {isProcessing && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="max-w-7xl mx-auto px-4">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="max-w-7xl mx-auto px-6 lg:px-8">
             <ProcessingSteps currentStep={processingStep} />
           </motion.div>
         )}

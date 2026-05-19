@@ -15,30 +15,30 @@ const categoryConfig: Record<string, { icon: typeof Lightbulb; color: string; bg
 export default function InsightCards({ insights }: Props) {
   return (
     <section className="section">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <Lightbulb className="w-6 h-6" style={{ color: '#f59e0b' }} />
-            <h2 className="section-title">AI-Generated Insights</h2>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Lightbulb className="w-8 h-8" style={{ color: '#f59e0b' }} />
+            <h2 className="section-title !mb-0">AI-Generated Insights</h2>
           </div>
           <p className="section-subtitle">Smart business-style insights powered by AI analysis</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl mx-auto" style={{ gap: '32px' }}>
           {insights.map((insight, i) => {
             const config = categoryConfig[insight.category] || categoryConfig.summary
             const Icon = config.icon
             return (
               <motion.div key={insight.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-                className="card group cursor-default">
-                <div className="flex items-start gap-3">
+                className="card group cursor-default h-full">
+                <div className="flex flex-col items-center gap-3 w-full">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                     style={{ background: config.bg }}>
                     <Icon className="w-5 h-5" style={{ color: config.color }} />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
+                  <div className="flex-1 min-w-0 w-full text-center">
+                    <div className="flex items-center justify-center gap-2 mb-1 flex-wrap">
                       <span className="text-xs font-medium px-2 py-0.5 rounded-full capitalize"
                         style={{ background: config.bg, color: config.color }}>{insight.category}</span>
                       {insight.importance === 'high' && (

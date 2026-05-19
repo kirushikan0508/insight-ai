@@ -6,9 +6,9 @@ const COLORS = ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'
 
 export default function PieChartCard({ chart }: { chart: ChartData }) {
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card">
-      <h3 className="text-sm font-semibold text-white mb-1">{chart.title}</h3>
-      <p className="text-xs mb-4" style={{ color: 'var(--color-text-muted)' }}>{chart.description}</p>
+    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card w-full">
+      <h3 className="text-sm font-semibold text-white mb-1 text-center">{chart.title}</h3>
+      <p className="text-xs mb-4 text-center" style={{ color: 'var(--color-text-muted)' }}>{chart.description}</p>
       <ResponsiveContainer width="100%" height={280}>
         <PieChart>
           <Pie data={chart.data} dataKey={chart.y_key || 'value'} nameKey={chart.x_key || 'name'}

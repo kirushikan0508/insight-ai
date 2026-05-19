@@ -19,22 +19,22 @@ const typeColors: Record<string, string> = {
 export default function DatasetOverview({ data }: Props) {
   return (
     <section id="overview" className="section">
-      <div className="max-w-7xl mx-auto px-4">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-10">
-          <div className="flex items-center gap-3 mb-2">
-            <Database className="w-6 h-6" style={{ color: '#8b5cf6' }} />
-            <h2 className="section-title">Dataset Overview</h2>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Database className="w-8 h-8" style={{ color: '#8b5cf6' }} />
+            <h2 className="section-title !mb-0">Dataset Overview</h2>
           </div>
           <p className="section-subtitle">{data.filename} — {data.memory_usage}</p>
         </motion.div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 w-full max-w-6xl mx-auto" style={{ gap: '32px', marginBottom: '48px' }}>
           {statCards.map(({ key, label, icon: Icon, color }, i) => (
             <motion.div key={key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: i * 0.1 }}
               className="stat-card group hover:scale-[1.02] transition-transform">
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center justify-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${color}15` }}>
                   <Icon className="w-5 h-5" style={{ color }} />
                 </div>
@@ -47,8 +47,8 @@ export default function DatasetOverview({ data }: Props) {
 
         {/* Column types */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="card mb-8">
-          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          className="card max-w-6xl mx-auto w-full" style={{ marginBottom: '48px' }}>
+          <h3 className="text-lg font-semibold mb-6 flex items-center justify-center gap-2">
             <Eye className="w-5 h-5" style={{ color: '#8b5cf6' }} /> Column Information
           </h3>
           <div className="overflow-x-auto">
@@ -75,8 +75,8 @@ export default function DatasetOverview({ data }: Props) {
 
         {/* Preview */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="card">
-          <h3 className="text-lg font-semibold mb-4">Data Preview (First 10 rows)</h3>
+          className="card max-w-6xl mx-auto w-full">
+          <h3 className="text-lg font-semibold mb-6 text-white text-center">Data Preview (First 10 rows)</h3>
           <div className="overflow-x-auto max-h-96">
             <table className="data-table">
               <thead>

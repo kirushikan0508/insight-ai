@@ -31,7 +31,7 @@ export default function ForecastPanel({ columns, onForecast, result, isLoading }
           <p className="section-subtitle">Predict future trends using Prophet forecasting</p>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card mb-8">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card mb-8 max-w-5xl mx-auto">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
             <div>
               <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-secondary)' }}>Date Column</label>
@@ -86,7 +86,7 @@ export default function ForecastPanel({ columns, onForecast, result, isLoading }
 
         <AnimatePresence>
           {result && !isLoading && (
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="max-w-6xl mx-auto">
               <ForecastChart data={result.forecast} title={`${result.value_column} — ${result.period}-Day Forecast`} />
               {result.trend_summary && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
@@ -102,7 +102,7 @@ export default function ForecastPanel({ columns, onForecast, result, isLoading }
         </AnimatePresence>
 
         {dateCols.length === 0 && (
-          <div className="card text-center py-12">
+          <div className="card text-center py-12 max-w-5xl mx-auto">
             <Calendar className="w-12 h-12 mx-auto mb-4" style={{ color: 'var(--color-text-muted)' }} />
             <p className="font-medium text-white mb-1">No Date Columns Detected</p>
             <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>Forecasting requires a datetime column in your dataset</p>
