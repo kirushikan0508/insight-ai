@@ -31,7 +31,8 @@ export default function ForecastPanel({ columns, onForecast, result, isLoading }
           <p className="section-subtitle">Predict future trends using Prophet forecasting</p>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card mb-8 max-w-5xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="card max-w-5xl mx-auto" style={{ marginBottom: '48px' }}>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
             <div>
               <label className="text-xs font-medium mb-1.5 block" style={{ color: 'var(--color-text-secondary)' }}>Date Column</label>
@@ -90,7 +91,7 @@ export default function ForecastPanel({ columns, onForecast, result, isLoading }
               <ForecastChart data={result.forecast} title={`${result.value_column} — ${result.period}-Day Forecast`} />
               {result.trend_summary && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-                  className="card mt-6">
+                  className="card" style={{ marginTop: '32px' }}>
                   <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
                     <Calendar className="w-4 h-4" style={{ color: '#06b6d4' }} /> Trend Analysis
                   </h3>

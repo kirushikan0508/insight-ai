@@ -31,9 +31,9 @@ export default function MLPredictions({ columns, onTrain, result, isTraining }: 
           </div>
           <p className="section-subtitle">Select a target column to auto-train and compare ML models</p>
         </motion.div>
-
         {/* Target selector */}
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="card mb-8 max-w-4xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          className="card max-w-4xl mx-auto" style={{ marginBottom: '48px' }}>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4">
             <div className="flex items-center gap-2">
               <Target className="w-5 h-5" style={{ color: '#8b5cf6' }} />
@@ -64,14 +64,14 @@ export default function MLPredictions({ columns, onTrain, result, isTraining }: 
               {/* Task type badge */}
               <div className="flex items-center gap-3 mb-6">
                 <span className="px-3 py-1 rounded-full text-xs font-semibold capitalize"
-                  style={{ background: 'rgba(139,92,246,0.1)', color: '#c4b5fd', border: '1px solid rgba(139,92,246,0.2)' }}>
+                   style={{ background: 'rgba(139,92,246,0.1)', color: '#c4b5fd', border: '1px solid rgba(139,92,246,0.2)' }}>
                   {result.task_type}
                 </span>
                 <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>Target: <strong className="text-white">{result.target_column}</strong></span>
               </div>
 
               {/* Model comparison */}
-              <div className="card mb-6 max-w-5xl mx-auto">
+              <div className="card max-w-5xl mx-auto" style={{ marginBottom: '48px' }}>
                 <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                   <Trophy className="w-5 h-5" style={{ color: '#f59e0b' }} /> Model Comparison
                 </h3>
@@ -91,8 +91,7 @@ export default function MLPredictions({ columns, onTrain, result, isTraining }: 
                 </div>
               </div>
 
-              {/* Charts */}
-              <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              <div className="grid md:grid-cols-2 max-w-6xl mx-auto" style={{ gap: '32px' }}>
                 {result.feature_importance.length > 0 && <FeatureImportanceChart data={result.feature_importance} />}
                 {result.confusion_matrix && <ConfusionMatrix matrix={result.confusion_matrix} labels={result.class_labels} />}
               </div>
