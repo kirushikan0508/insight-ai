@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import * as Dialog from '@radix-ui/react-dialog'
-import { X, Image as ImageIcon, Download, FileText, Loader2, Wand2, LayoutTemplate } from 'lucide-react'
+import { X, Image as ImageIcon, Download, FileText, Loader2, LayoutTemplate } from 'lucide-react'
 import type { DatasetOverview, ChartData, AIInsight, MLResult, ForecastResult } from '@/types'
-import ReportPoster, { type ThemeKey } from './ReportPoster'
+import ReportPoster, { type ThemeKey, themes } from './ReportPoster'
 import { captureReportAsCanvas, downloadAsPNG, downloadAsJPG, downloadAsPDF } from '@/services/reportExport'
 
 interface Props {
@@ -16,10 +16,10 @@ interface Props {
   forecastResult: ForecastResult | null
 }
 
-const themeOptions: { key: ThemeKey; name: string; desc: string; colors: string[] }[] = [
-  { key: 'dark-analytics', name: 'Dark Analytics', desc: 'Premium deep blue gradient theme', colors: ['#0a0a0f', '#3b82f6', '#8b5cf6'] },
-  { key: 'futuristic-ai', name: 'Futuristic AI', desc: 'Neon cyan & emerald tech theme', colors: ['#0a0f1a', '#06b6d4', '#10b981'] },
-  { key: 'minimal-business', name: 'Minimal Business', desc: 'Clean slate & indigo professional', colors: ['#111116', '#6366f1', '#a78bfa'] },
+const themeOptions: { key: ThemeKey; name: string; colors: string[] }[] = [
+  { key: 'dark-analytics', name: 'Dark Analytics', colors: ['#0a0a0f', '#3b82f6', '#8b5cf6'] },
+  { key: 'futuristic-ai', name: 'Futuristic AI', colors: ['#0a0f1a', '#06b6d4', '#10b981'] },
+  { key: 'minimal-business', name: 'Minimal Business', colors: ['#111116', '#6366f1', '#a78bfa'] },
 ]
 
 export default function ReportGeneratorModal({
@@ -34,10 +34,10 @@ export default function ReportGeneratorModal({
     setIsGenerating(true)
     
     try {
-      // Short delay to allow fonts/charts to render fully if needed
+      // Small delay to ensure all renders and animations are fully settled
       await new Promise(resolve => setTimeout(resolve, 500))
       
-      const canvas = await captureReportAsCanvas(posterRef.current, 2) // 2x scale for hi-res
+      const canvas = await captureReportAsCanvas(posterRef.current, 2)
       const filename = `${overview.filename.replace(/\.[^/.]+$/, '')}_AI_Report`
       
       if (format === 'png') downloadAsPNG(canvas, filename)
@@ -69,142 +69,93 @@ export default function ReportGeneratorModal({
             <Dialog.Overlay asChild>
               <motion.div
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50"
-                style={{ background: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(8px)' }}
+                className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
               />
             </Dialog.Overlay>
             <Dialog.Content asChild>
               <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                initial={{ opacity: 0, scale: 0.98, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                exit={{ opacity: 0, scale: 0.98, y: 10 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                className="fixed inset-4 md:inset-10 z-50 flex flex-col rounded-2xl overflow-hidden shadow-2xl"
+                className="fixed inset-0 md:inset-4 lg:inset-8 z-50 flex flex-col rounded-none md:rounded-2xl overflow-hidden shadow-2xl"
                 style={{ background: 'var(--color-bg-primary)', border: '1px solid var(--color-border)' }}
               >
-                {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(139, 92, 246, 0.15)' }}>
-                      <Wand2 className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div>
-                      <Dialog.Title className="text-lg font-bold text-white m-0">AI Insight Poster Generator</Dialog.Title>
-                      <Dialog.Description className="text-sm text-slate-400 m-0">Customize and download a professional analytics infographic</Dialog.Description>
-                    </div>
+                {/* Fixed Header & Controls */}
+                <div className="flex-shrink-0 z-20 backdrop-blur-md bg-black/40 border-b border-white/10 p-4 md:px-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <Dialog.Title className="text-xl md:text-2xl font-bold text-white m-0 tracking-tight">
+                      AI Insight Poster Generator
+                    </Dialog.Title>
+                    <Dialog.Close asChild>
+                      <button className="p-2 rounded-full hover:bg-white/10 transition-colors text-slate-400 hover:text-white">
+                        <X className="w-6 h-6" />
+                      </button>
+                    </Dialog.Close>
                   </div>
-                  <Dialog.Close asChild>
-                    <button className="p-2 rounded-lg hover:bg-white/5 transition-colors text-slate-400 hover:text-white">
-                      <X className="w-5 h-5" />
-                    </button>
-                  </Dialog.Close>
-                </div>
 
-                <div className="flex flex-1 overflow-hidden flex-col md:flex-row">
-                  {/* Left Sidebar - Controls */}
-                  <div className="w-full md:w-80 flex-shrink-0 p-6 overflow-y-auto" style={{ borderRight: '1px solid var(--color-border)' }}>
-                    
-                    <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                      <LayoutTemplate className="w-4 h-4 text-cyan-400" /> Select Theme
-                    </h3>
-                    <div className="flex flex-col gap-3 mb-8">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    {/* Theme Selector */}
+                    <div className="flex items-center gap-3 overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+                      <LayoutTemplate className="w-5 h-5 text-slate-400 flex-shrink-0 hidden md:block" />
                       {themeOptions.map(opt => (
                         <button
                           key={opt.key}
                           onClick={() => setTheme(opt.key)}
-                          className={`p-3 rounded-xl text-left transition-all ${theme === opt.key ? 'ring-2 ring-purple-500' : 'hover:bg-white/5'}`}
-                          style={{
-                            background: theme === opt.key ? 'rgba(139, 92, 246, 0.1)' : 'var(--color-bg-secondary)',
-                            border: '1px solid',
-                            borderColor: theme === opt.key ? 'transparent' : 'var(--color-border)',
-                          }}
+                          className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all whitespace-nowrap ${
+                            theme === opt.key ? 'ring-2 ring-purple-500 bg-white/10 text-white' : 'hover:bg-white/5 text-slate-300'
+                          }`}
+                          style={{ border: '1px solid', borderColor: theme === opt.key ? 'transparent' : 'var(--color-border)' }}
                         >
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="font-semibold text-white text-sm">{opt.name}</span>
-                            <div className="flex rounded-full overflow-hidden w-8 h-4">
-                              {opt.colors.map(c => <div key={c} style={{ background: c, flex: 1 }} />)}
-                            </div>
+                          <div className="flex rounded-full overflow-hidden w-4 h-4 shadow-sm border border-black/20">
+                            {opt.colors.map(c => <div key={c} style={{ background: c, flex: 1 }} />)}
                           </div>
-                          <p className="text-xs text-slate-400 m-0">{opt.desc}</p>
+                          <span className="text-sm font-semibold">{opt.name}</span>
                         </button>
                       ))}
                     </div>
 
-                    <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-                      <Download className="w-4 h-4 text-emerald-400" /> Download Format
-                    </h3>
-                    <div className="flex flex-col gap-3">
+                    {/* Download Buttons */}
+                    <div className="flex flex-wrap items-center gap-3">
                       <button
                         onClick={() => handleDownload('png')} disabled={isGenerating}
-                        className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-slate-700/50 group"
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 transition-all disabled:opacity-50"
                       >
-                        <div className="flex items-center gap-3">
-                          <ImageIcon className="w-5 h-5 text-blue-400" />
-                          <div className="text-left">
-                            <div className="text-sm font-semibold text-white">PNG Image</div>
-                            <div className="text-xs text-slate-400">High quality, best for web</div>
-                          </div>
-                        </div>
-                        <Download className="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
+                        <ImageIcon className="w-4 h-4 text-blue-400" /> PNG
                       </button>
-                      
                       <button
                         onClick={() => handleDownload('jpg')} disabled={isGenerating}
-                        className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-slate-700/50 group"
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 transition-all disabled:opacity-50"
                       >
-                        <div className="flex items-center gap-3">
-                          <ImageIcon className="w-5 h-5 text-amber-400" />
-                          <div className="text-left">
-                            <div className="text-sm font-semibold text-white">JPG Image</div>
-                            <div className="text-xs text-slate-400">Smaller file size</div>
-                          </div>
-                        </div>
-                        <Download className="w-4 h-4 text-slate-500 group-hover:text-amber-400 transition-colors" />
+                        <ImageIcon className="w-4 h-4 text-amber-400" /> JPG
                       </button>
-
                       <button
                         onClick={() => handleDownload('pdf')} disabled={isGenerating}
-                        className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors border border-slate-700/50 group"
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/30 transition-all disabled:opacity-50"
                       >
-                        <div className="flex items-center gap-3">
-                          <FileText className="w-5 h-5 text-rose-400" />
-                          <div className="text-left">
-                            <div className="text-sm font-semibold text-white">PDF Document</div>
-                            <div className="text-xs text-slate-400">A4 format, presentation ready</div>
-                          </div>
-                        </div>
-                        <Download className="w-4 h-4 text-slate-500 group-hover:text-rose-400 transition-colors" />
+                        <FileText className="w-4 h-4 text-rose-400" /> PDF
                       </button>
                     </div>
-
                   </div>
+                </div>
 
-                  {/* Right Content - Preview */}
-                  <div className="flex-1 relative bg-black/40 overflow-hidden flex items-center justify-center p-8">
-                    {/* The actual hidden element for html2canvas */}
-                    <div style={{ position: 'absolute', top: -9999, left: -9999, pointerEvents: 'none' }}>
-                      <ReportPoster
-                        ref={posterRef}
-                        theme={theme}
-                        overview={overview}
-                        charts={charts}
-                        insights={insights}
-                        mlResult={mlResult}
-                        forecastResult={forecastResult}
-                      />
-                    </div>
-
-                    {/* Visual scaled preview of what will be generated */}
-                    {/* We scale down the hidden poster size to fit the container visually */}
-                    <div className="relative shadow-2xl rounded-lg overflow-hidden flex items-center justify-center" style={{ width: '100%', height: '100%', maxWidth: '800px' }}>
-                      {/* Using iframe or scaled div isn't perfectly reliable for complex Recharts without rerendering. 
-                          We will render a second ReportPoster here but scaled down via CSS transform. */}
-                      <div style={{ 
-                        transform: 'scale(min(0.4, calc(100vw / 1500)))', 
-                        transformOrigin: 'center center',
-                        pointerEvents: 'none'
-                      }}>
+                {/* Scrollable Preview Area */}
+                <div 
+                  className="flex-1 overflow-y-auto overflow-x-hidden relative p-4 md:p-8 custom-scrollbar"
+                  style={{ background: '#05080f' }}
+                >
+                  <div className="flex justify-center w-full min-h-full origin-top">
+                    <div 
+                      className="origin-top"
+                      style={{ 
+                        transform: 'scale(var(--poster-scale, 1))',
+                        width: '1600px', // matches ReportPoster width
+                        transition: 'transform 0.1s' 
+                      }}
+                    >
+                      <div className="rounded-3xl overflow-hidden shadow-2xl">
                         <ReportPoster
+                          ref={posterRef}
                           theme={theme}
                           overview={overview}
                           charts={charts}
@@ -214,25 +165,34 @@ export default function ReportGeneratorModal({
                         />
                       </div>
                     </div>
-
-                    {/* Generating Overlay */}
-                    <AnimatePresence>
-                      {isGenerating && (
-                        <motion.div
-                          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                          className="absolute inset-0 z-10 flex flex-col items-center justify-center backdrop-blur-md bg-black/60"
-                        >
-                          <Loader2 className="w-12 h-12 text-purple-500 animate-spin mb-4" />
-                          <h3 className="text-xl font-bold text-white mb-2">Generating Report...</h3>
-                          <p className="text-slate-300">Rendering high-resolution {themeOptions.find(t => t.key === theme)?.name} poster</p>
-                          
-                          {/* Animated particles/glow */}
-                          <div className="absolute w-64 h-64 rounded-full bg-purple-500/20 blur-3xl animate-pulse -z-10" />
-                          <div className="absolute w-64 h-64 rounded-full bg-cyan-500/20 blur-3xl animate-pulse delay-75 -z-10 translate-x-10 translate-y-10" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </div>
+
+                  {/* Dynamic Scaling Script */}
+                  <style>{`
+                    .custom-scrollbar {
+                      --container-width: calc(100vw - 4rem);
+                    }
+                    @media (max-width: 768px) {
+                      .custom-scrollbar { --container-width: 100vw; }
+                    }
+                    .origin-top {
+                      --poster-scale: min(1, calc(var(--container-width) / 1640));
+                    }
+                  `}</style>
+
+                  {/* Generating Overlay */}
+                  <AnimatePresence>
+                    {isGenerating && (
+                      <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="absolute inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-xl bg-black/60 rounded-none md:rounded-3xl"
+                      >
+                        <Loader2 className="w-12 h-12 text-purple-500 animate-spin mb-4" />
+                        <h3 className="text-2xl font-bold text-white mb-2 tracking-tight">Generating Poster...</h3>
+                        <p className="text-slate-300 font-medium">Capturing layout in high-resolution</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             </Dialog.Content>

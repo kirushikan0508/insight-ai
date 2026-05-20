@@ -6,16 +6,17 @@ import { jsPDF } from 'jspdf'
  */
 export async function captureReportAsCanvas(
   element: HTMLElement,
-  scale = 2
+  scale = 3
 ): Promise<HTMLCanvasElement> {
   const canvas = await html2canvas(element, {
     scale,
     useCORS: true,
     allowTaint: true,
-    backgroundColor: null,
+    backgroundColor: '#0B1020',
     logging: false,
-    width: element.scrollWidth,
+    width: 1600, // force width for export
     height: element.scrollHeight,
+    windowWidth: 1600,
   })
   return canvas
 }
@@ -55,12 +56,12 @@ export function downloadAsJPG(canvas: HTMLCanvasElement, filename: string) {
 }
 
 /**
- * Download canvas as PDF (A4 format)
+ * Download canvas as PDF (A4 format, Landscape)
  */
 export function downloadAsPDF(canvas: HTMLCanvasElement, filename: string) {
   const imgData = canvas.toDataURL('image/png', 1.0)
   const pdf = new jsPDF({
-    orientation: 'portrait',
+    orientation: 'landscape',
     unit: 'mm',
     format: 'a4',
   })

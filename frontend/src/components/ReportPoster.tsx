@@ -12,7 +12,7 @@ import type { DatasetOverview, ChartData, AIInsight, MLResult, ForecastResult } 
 /* ============ Theme Definitions ============ */
 export type ThemeKey = 'dark-analytics' | 'futuristic-ai' | 'minimal-business'
 
-interface ThemeColors {
+export interface ThemeColors {
   bg: string
   bgCard: string
   bgCardBorder: string
@@ -26,58 +26,59 @@ interface ThemeColors {
   headerGradient: string
 }
 
-const themes: Record<ThemeKey, ThemeColors> = {
+// Redesigned with premium colors per user request
+export const themes: Record<ThemeKey, ThemeColors> = {
   'dark-analytics': {
-    bg: '#0a0a0f',
-    bgCard: 'rgba(26, 26, 46, 0.8)',
-    bgCardBorder: 'rgba(148, 163, 184, 0.1)',
+    bg: '#0B1020',
+    bgCard: '#121A2D',
+    bgCardBorder: 'rgba(255, 255, 255, 0.05)',
     accent1: '#3b82f6',
     accent2: '#8b5cf6',
     accent3: '#06b6d4',
-    textPrimary: '#f1f5f9',
+    textPrimary: '#ffffff',
     textSecondary: '#94a3b8',
-    textMuted: '#64748b',
+    textMuted: '#475569',
     kpiGradients: [
-      'linear-gradient(135deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05))',
-      'linear-gradient(135deg, rgba(139,92,246,0.15), rgba(139,92,246,0.05))',
-      'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05))',
-      'linear-gradient(135deg, rgba(236,72,153,0.15), rgba(236,72,153,0.05))',
+      'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.02))',
+      'linear-gradient(135deg, rgba(139,92,246,0.1), rgba(139,92,246,0.02))',
+      'linear-gradient(135deg, rgba(245,158,11,0.1), rgba(245,158,11,0.02))',
+      'linear-gradient(135deg, rgba(236,72,153,0.1), rgba(236,72,153,0.02))',
     ],
-    headerGradient: 'linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4)',
+    headerGradient: 'linear-gradient(135deg, #ffffff, #94a3b8)',
   },
   'futuristic-ai': {
-    bg: '#0a0f1a',
-    bgCard: 'rgba(10, 30, 50, 0.8)',
-    bgCardBorder: 'rgba(6, 182, 212, 0.15)',
+    bg: '#0B1020',
+    bgCard: '#121A2D',
+    bgCardBorder: 'rgba(6, 182, 212, 0.1)',
     accent1: '#06b6d4',
     accent2: '#10b981',
     accent3: '#3b82f6',
-    textPrimary: '#e0f2fe',
-    textSecondary: '#7dd3fc',
-    textMuted: '#38bdf8',
+    textPrimary: '#ffffff',
+    textSecondary: '#94a3b8',
+    textMuted: '#475569',
     kpiGradients: [
-      'linear-gradient(135deg, rgba(6,182,212,0.2), rgba(6,182,212,0.05))',
-      'linear-gradient(135deg, rgba(16,185,129,0.2), rgba(16,185,129,0.05))',
-      'linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.05))',
-      'linear-gradient(135deg, rgba(168,85,247,0.2), rgba(168,85,247,0.05))',
+      'linear-gradient(135deg, rgba(6,182,212,0.1), rgba(6,182,212,0.02))',
+      'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.02))',
+      'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.02))',
+      'linear-gradient(135deg, rgba(168,85,247,0.1), rgba(168,85,247,0.02))',
     ],
-    headerGradient: 'linear-gradient(135deg, #06b6d4, #10b981, #3b82f6)',
+    headerGradient: 'linear-gradient(135deg, #06b6d4, #10b981)',
   },
   'minimal-business': {
-    bg: '#111116',
-    bgCard: 'rgba(30, 30, 40, 0.9)',
-    bgCardBorder: 'rgba(100, 116, 139, 0.15)',
+    bg: '#0B1020',
+    bgCard: '#121A2D',
+    bgCardBorder: 'rgba(255, 255, 255, 0.05)',
     accent1: '#6366f1',
     accent2: '#a78bfa',
     accent3: '#818cf8',
-    textPrimary: '#e2e8f0',
+    textPrimary: '#ffffff',
     textSecondary: '#94a3b8',
-    textMuted: '#64748b',
+    textMuted: '#475569',
     kpiGradients: [
-      'linear-gradient(135deg, rgba(99,102,241,0.12), rgba(99,102,241,0.04))',
-      'linear-gradient(135deg, rgba(167,139,250,0.12), rgba(167,139,250,0.04))',
-      'linear-gradient(135deg, rgba(129,140,248,0.12), rgba(129,140,248,0.04))',
-      'linear-gradient(135deg, rgba(196,181,253,0.12), rgba(196,181,253,0.04))',
+      'linear-gradient(135deg, rgba(99,102,241,0.1), rgba(99,102,241,0.02))',
+      'linear-gradient(135deg, rgba(167,139,250,0.1), rgba(167,139,250,0.02))',
+      'linear-gradient(135deg, rgba(129,140,248,0.1), rgba(129,140,248,0.02))',
+      'linear-gradient(135deg, rgba(196,181,253,0.1), rgba(196,181,253,0.02))',
     ],
     headerGradient: 'linear-gradient(135deg, #6366f1, #a78bfa)',
   },
@@ -108,7 +109,7 @@ const ReportPoster = forwardRef<HTMLDivElement, ReportPosterProps>(
       { label: 'Total Rows', value: overview.rows.toLocaleString(), icon: Rows3, color: t.accent1 },
       { label: 'Columns', value: overview.columns.toLocaleString(), icon: Columns3, color: t.accent2 },
       { label: 'Missing Values', value: overview.missing_values.toLocaleString(), icon: AlertTriangle, color: '#f59e0b' },
-      { label: 'Memory', value: overview.memory_usage, icon: Database, color: '#ec4899' },
+      { label: 'Memory Usage', value: overview.memory_usage, icon: Database, color: '#ec4899' },
     ]
 
     const categoryIcons: Record<string, typeof Lightbulb> = {
@@ -119,80 +120,81 @@ const ReportPoster = forwardRef<HTMLDivElement, ReportPosterProps>(
     return (
       <div
         ref={ref}
+        className="mx-auto relative overflow-hidden font-sans"
         style={{
-          width: 1200,
-          minHeight: 1700,
+          width: '1600px', // Fixed export width
+          padding: '64px 80px', // Large breathing room
           background: t.bg,
-          fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
           color: t.textPrimary,
-          padding: 48,
-          position: 'relative',
-          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '48px', // Strong section gap
         }}
       >
         {/* Background decorations */}
-        <div style={{
-          position: 'absolute', top: -200, right: -200, width: 600, height: 600,
-          borderRadius: '50%', background: `radial-gradient(circle, ${t.accent1}10, transparent 70%)`,
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: -200, left: -200, width: 600, height: 600,
-          borderRadius: '50%', background: `radial-gradient(circle, ${t.accent2}10, transparent 70%)`,
-          pointerEvents: 'none',
-        }} />
+        <div
+          className="absolute -top-[300px] -right-[200px] w-[800px] h-[800px] rounded-full blur-[120px] pointer-events-none opacity-30"
+          style={{ background: `radial-gradient(circle, ${t.accent1}, transparent 60%)` }}
+        />
+        <div
+          className="absolute -bottom-[300px] -left-[200px] w-[800px] h-[800px] rounded-full blur-[120px] pointer-events-none opacity-20"
+          style={{ background: `radial-gradient(circle, ${t.accent2}, transparent 60%)` }}
+        />
 
         {/* ===== HEADER ===== */}
-        <div style={{
-          textAlign: 'center', marginBottom: 48, position: 'relative', zIndex: 1,
-          padding: '36px 32px',
-          background: t.bgCard,
-          border: `1px solid ${t.bgCardBorder}`,
-          borderRadius: 20,
-        }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10, marginBottom: 16,
-            padding: '8px 20px', borderRadius: 100,
-            background: `${t.accent2}18`, border: `1px solid ${t.accent2}30`,
-          }}>
-            <Sparkles style={{ width: 16, height: 16, color: t.accent2 }} />
-            <span style={{ fontSize: 13, fontWeight: 600, color: t.accent2 }}>AI-Powered Analytics Report</span>
+        <div className="relative z-10 flex flex-col items-center justify-center text-center">
+          <div
+            className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full shadow-sm"
+            style={{
+              background: `${t.accent1}15`,
+              border: `1px solid ${t.accent1}30`,
+            }}
+          >
+            <Sparkles className="w-5 h-5" style={{ color: t.accent1 }} />
+            <span className="text-sm font-bold tracking-widest uppercase" style={{ color: t.accent1 }}>
+              AI-Powered Analytics Report
+            </span>
           </div>
-          <h1 style={{
-            fontSize: 36, fontWeight: 800, letterSpacing: -1,
-            background: t.headerGradient,
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text', margin: '0 0 8px',
-          }}>
-            {overview.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} Analysis
+
+          <h1
+            className="text-6xl font-extrabold tracking-tight mb-4"
+            style={{
+              background: t.headerGradient,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            {overview.filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
           </h1>
-          <p style={{ fontSize: 14, color: t.textSecondary, margin: 0 }}>
-            Generated on {dateStr} • {overview.rows.toLocaleString()} records analyzed
+
+          <p className="text-xl font-medium tracking-wide" style={{ color: t.textSecondary }}>
+            Generated on {dateStr} • {overview.rows.toLocaleString()} Records Analyzed
           </p>
         </div>
 
         {/* ===== KPI CARDS ===== */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20,
-          marginBottom: 40, position: 'relative', zIndex: 1,
-        }}>
+        <div className="relative z-10 grid grid-cols-4 gap-6">
           {kpiData.map((kpi, i) => {
             const Icon = kpi.icon
             return (
-              <div key={kpi.label} style={{
-                background: t.kpiGradients[i],
-                border: `1px solid ${t.bgCardBorder}`,
-                borderRadius: 16, padding: '24px 20px', textAlign: 'center',
-              }}>
-                <div style={{
-                  width: 40, height: 40, borderRadius: 12, margin: '0 auto 12px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  background: `${kpi.color}20`,
-                }}>
-                  <Icon style={{ width: 20, height: 20, color: kpi.color }} />
+              <div
+                key={kpi.label}
+                className="flex flex-col items-center justify-center p-8 rounded-2xl shadow-xl border"
+                style={{
+                  background: t.bgCard,
+                  borderColor: t.bgCardBorder,
+                  backgroundImage: t.kpiGradients[i],
+                }}
+              >
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-inner"
+                  style={{ background: `${kpi.color}15`, border: `1px solid ${kpi.color}25` }}
+                >
+                  <Icon className="w-7 h-7" style={{ color: kpi.color }} />
                 </div>
-                <div style={{ fontSize: 28, fontWeight: 700, color: t.textPrimary }}>{kpi.value}</div>
-                <div style={{ fontSize: 12, fontWeight: 500, color: t.textSecondary, marginTop: 4 }}>{kpi.label}</div>
+                <div className="text-5xl font-black mb-2 tracking-tight" style={{ color: t.textPrimary }}>{kpi.value}</div>
+                <div className="text-sm font-bold uppercase tracking-widest" style={{ color: t.textSecondary }}>{kpi.label}</div>
               </div>
             )
           })}
@@ -200,21 +202,23 @@ const ReportPoster = forwardRef<HTMLDivElement, ReportPosterProps>(
 
         {/* ===== CHARTS ===== */}
         {topCharts.length > 0 && (
-          <div style={{ marginBottom: 40, position: 'relative', zIndex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <BarChart3 style={{ width: 22, height: 22, color: t.accent3 }} />
-              <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>Visualizations</h2>
+          <div className="relative z-10 flex flex-col gap-6">
+            <div className="flex items-center gap-3 px-2">
+              <BarChart3 className="w-8 h-8" style={{ color: t.accent1 }} />
+              <h2 className="text-3xl font-bold tracking-tight m-0" style={{ color: t.textPrimary }}>Visualizations</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
+
+            <div className="grid grid-cols-2 gap-6">
               {topCharts.map((chart, i) => (
-                <div key={i} style={{
-                  background: t.bgCard, border: `1px solid ${t.bgCardBorder}`,
-                  borderRadius: 16, padding: 24,
-                }}>
-                  <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16, color: t.textPrimary }}>
+                <div
+                  key={i}
+                  className="p-8 rounded-2xl shadow-xl border flex flex-col"
+                  style={{ background: t.bgCard, borderColor: t.bgCardBorder, minHeight: '420px' }}
+                >
+                  <h3 className="text-xl font-bold mb-8" style={{ color: t.textPrimary }}>
                     {chart.title}
                   </h3>
-                  <div style={{ width: '100%', height: 200 }}>
+                  <div className="w-full flex-1">
                     <ResponsiveContainer width="100%" height="100%">
                       {renderChart(chart, t)}
                     </ResponsiveContainer>
@@ -227,12 +231,13 @@ const ReportPoster = forwardRef<HTMLDivElement, ReportPosterProps>(
 
         {/* ===== AI INSIGHTS ===== */}
         {topInsights.length > 0 && (
-          <div style={{ marginBottom: 40, position: 'relative', zIndex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <Lightbulb style={{ width: 22, height: 22, color: '#f59e0b' }} />
-              <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>AI Insights</h2>
+          <div className="relative z-10 flex flex-col gap-6">
+            <div className="flex items-center gap-3 px-2">
+              <Lightbulb className="w-8 h-8" style={{ color: '#f59e0b' }} />
+              <h2 className="text-3xl font-bold tracking-tight m-0" style={{ color: t.textPrimary }}>AI Insights</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+
+            <div className="grid grid-cols-4 gap-6">
               {topInsights.map((insight) => {
                 const Icon = categoryIcons[insight.category] || Lightbulb
                 const colors: Record<string, string> = {
@@ -240,39 +245,44 @@ const ReportPoster = forwardRef<HTMLDivElement, ReportPosterProps>(
                   recommendation: '#10b981', summary: '#06b6d4',
                 }
                 const clr = colors[insight.category] || '#06b6d4'
+
                 return (
-                  <div key={insight.id} style={{
-                    background: t.bgCard, border: `1px solid ${t.bgCardBorder}`,
-                    borderRadius: 14, padding: 20,
-                    display: 'flex', gap: 14, alignItems: 'flex-start',
-                  }}>
-                    <div style={{
-                      width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      background: `${clr}18`,
-                    }}>
-                      <Icon style={{ width: 18, height: 18, color: clr }} />
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                        <span style={{
-                          fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 100,
-                          background: `${clr}18`, color: clr, textTransform: 'capitalize',
-                        }}>{insight.category}</span>
+                  <div
+                    key={insight.id}
+                    className="flex flex-col p-8 rounded-2xl shadow-xl border h-full"
+                    style={{ background: t.bgCard, borderColor: t.bgCardBorder }}
+                  >
+                    <div className="flex flex-col items-start gap-4 mb-5">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="text-xs font-bold px-3 py-1.5 rounded-md uppercase tracking-wider"
+                          style={{ background: `${clr}15`, color: clr, border: `1px solid ${clr}30` }}
+                        >
+                          {insight.category}
+                        </span>
                         {insight.importance === 'high' && (
-                          <span style={{
-                            fontSize: 10, fontWeight: 600, padding: '2px 8px', borderRadius: 100,
-                            background: 'rgba(239,68,68,0.15)', color: '#ef4444',
-                          }}>High Priority</span>
+                          <span
+                            className="text-xs font-bold px-3 py-1.5 rounded-md uppercase tracking-wider"
+                            style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: '1px solid rgba(239,68,68,0.2)' }}
+                          >
+                            High Priority
+                          </span>
                         )}
                       </div>
-                      <h4 style={{ fontSize: 13, fontWeight: 600, color: t.textPrimary, margin: '0 0 4px' }}>
-                        {insight.title}
-                      </h4>
-                      <p style={{ fontSize: 12, color: t.textSecondary, margin: 0, lineHeight: 1.5 }}>
-                        {insight.description}
-                      </p>
+                      <div
+                        className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center shadow-inner"
+                        style={{ background: `${clr}15` }}
+                      >
+                        <Icon className="w-6 h-6" style={{ color: clr }} />
+                      </div>
                     </div>
+
+                    <h4 className="text-lg font-bold mb-3 leading-snug" style={{ color: t.textPrimary }}>
+                      {insight.title}
+                    </h4>
+                    <p className="text-base leading-relaxed m-0 flex-1" style={{ color: t.textSecondary }}>
+                      {insight.description}
+                    </p>
                   </div>
                 )
               })}
@@ -280,153 +290,163 @@ const ReportPoster = forwardRef<HTMLDivElement, ReportPosterProps>(
           </div>
         )}
 
-        {/* ===== ML PREDICTIONS ===== */}
-        {mlResult && (
-          <div style={{ marginBottom: 40, position: 'relative', zIndex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <Brain style={{ width: 22, height: 22, color: t.accent2 }} />
-              <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>ML Predictions</h2>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-              {/* Best model card */}
-              <div style={{
-                background: t.bgCard, border: `1px solid ${t.bgCardBorder}`,
-                borderRadius: 16, padding: 28,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                  <Trophy style={{ width: 20, height: 20, color: '#f59e0b' }} />
-                  <h3 style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>Best Model</h3>
+        {/* ===== PREDICTIONS & FORECAST ===== */}
+        {(mlResult || forecastResult) && (
+          <div className="relative z-10 grid grid-cols-2 gap-8 pt-4">
+
+            {/* ML PREDICTIONS */}
+            {mlResult && (
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-3 px-2">
+                  <Brain className="w-8 h-8" style={{ color: t.accent2 }} />
+                  <h2 className="text-3xl font-bold tracking-tight m-0" style={{ color: t.textPrimary }}>Machine Learning</h2>
                 </div>
-                <div style={{ fontSize: 26, fontWeight: 700, color: t.accent1, marginBottom: 8 }}>
-                  {mlResult.best_model}
-                </div>
-                <div style={{
-                  display: 'inline-block', padding: '4px 12px', borderRadius: 100,
-                  background: `${t.accent2}18`, color: t.accent2,
-                  fontSize: 12, fontWeight: 600, textTransform: 'capitalize', marginBottom: 16,
-                }}>
-                  {mlResult.task_type} • Target: {mlResult.target_column}
-                </div>
-                {/* Metrics */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 10 }}>
-                  {mlResult.models.find(m => m.is_best) &&
-                    Object.entries(mlResult.models.find(m => m.is_best)!.metrics).slice(0, 4).map(([key, val]) => (
-                      <div key={key} style={{
-                        background: `${t.accent1}08`, borderRadius: 10, padding: '10px 14px',
-                        border: `1px solid ${t.bgCardBorder}`,
-                      }}>
-                        <div style={{ fontSize: 10, color: t.textMuted, textTransform: 'uppercase', fontWeight: 600 }}>
-                          {key.replace(/_/g, ' ')}
+
+                <div
+                  className="flex flex-col p-8 rounded-2xl shadow-xl border h-full"
+                  style={{ background: t.bgCard, borderColor: t.bgCardBorder }}
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <Trophy className="w-7 h-7" style={{ color: '#f59e0b' }} />
+                    <h3 className="text-xl font-bold m-0 tracking-tight" style={{ color: t.textPrimary }}>Top Performing Model</h3>
+                  </div>
+
+                  <div className="text-5xl font-black mb-4 tracking-tight" style={{ color: t.accent1 }}>
+                    {mlResult.best_model}
+                  </div>
+                  <div className="mb-8">
+                    <span
+                      className="inline-block px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider"
+                      style={{ background: `${t.accent2}15`, color: t.accent2, border: `1px solid ${t.accent2}30` }}
+                    >
+                      {mlResult.task_type} • Target: {mlResult.target_column}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 mb-10">
+                    {mlResult.models.find(m => m.is_best) &&
+                      Object.entries(mlResult.models.find(m => m.is_best)!.metrics).slice(0, 4).map(([key, val]) => (
+                        <div
+                          key={key}
+                          className="p-5 rounded-xl border"
+                          style={{ background: t.bg, borderColor: t.bgCardBorder }}
+                        >
+                          <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: t.textMuted }}>
+                            {key.replace(/_/g, ' ')}
+                          </div>
+                          <div className="text-3xl font-bold tracking-tight" style={{ color: t.textPrimary }}>
+                            {typeof val === 'number' ? val.toFixed(4) : val}
+                          </div>
                         </div>
-                        <div style={{ fontSize: 18, fontWeight: 700, color: t.textPrimary }}>
-                          {typeof val === 'number' ? val.toFixed(4) : val}
-                        </div>
+                      ))
+                    }
+                  </div>
+
+                  {mlResult.feature_importance.length > 0 && (
+                    <div className="flex-1 min-h-[220px] mt-auto">
+                      <div className="flex items-center gap-2 mb-6">
+                        <Zap className="w-5 h-5" style={{ color: t.accent3 }} />
+                        <h4 className="text-base font-bold uppercase tracking-wider" style={{ color: t.textPrimary }}>Top Features</h4>
                       </div>
-                    ))
-                  }
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={mlResult.feature_importance.slice(0, 5)} layout="vertical" margin={{ left: -10 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}30`} horizontal={false} />
+                          <XAxis type="number" hide />
+                          <YAxis dataKey="feature" type="category" tick={{ fill: t.textSecondary, fontSize: 13, fontWeight: 500 }} width={120} axisLine={false} tickLine={false} />
+                          <Bar dataKey="importance" fill={t.accent1} radius={[0, 4, 4, 0]} maxBarSize={32} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  )}
                 </div>
               </div>
+            )}
 
-              {/* Feature importance */}
-              {mlResult.feature_importance.length > 0 && (
-                <div style={{
-                  background: t.bgCard, border: `1px solid ${t.bgCardBorder}`,
-                  borderRadius: 16, padding: 28,
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                    <Zap style={{ width: 20, height: 20, color: t.accent3 }} />
-                    <h3 style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>Top Features</h3>
-                  </div>
-                  <div style={{ width: '100%', height: 220 }}>
+            {/* FORECAST */}
+            {forecastResult && (
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-3 px-2">
+                  <TrendingUp className="w-8 h-8" style={{ color: t.accent3 }} />
+                  <h2 className="text-3xl font-bold tracking-tight m-0" style={{ color: t.textPrimary }}>Forecast</h2>
+                </div>
+
+                <div
+                  className="flex flex-col p-8 rounded-2xl shadow-xl border h-full"
+                  style={{ background: t.bgCard, borderColor: t.bgCardBorder }}
+                >
+                  <h3 className="text-xl font-bold mb-8 tracking-tight" style={{ color: t.textPrimary }}>
+                    {forecastResult.value_column} Trend ({forecastResult.period} Days)
+                  </h3>
+
+                  <div className="w-full flex-1 min-h-[300px] mb-8">
                     <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={mlResult.feature_importance.slice(0, 8)} layout="vertical">
-                        <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}20`} />
-                        <XAxis type="number" tick={{ fill: t.textMuted, fontSize: 10 }} />
-                        <YAxis dataKey="feature" type="category" tick={{ fill: t.textSecondary, fontSize: 10 }} width={100} />
-                        <Bar dataKey="importance" fill={t.accent1} radius={[0, 6, 6, 0]} />
-                      </BarChart>
+                      <AreaChart data={forecastResult.forecast}>
+                        <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}30`} vertical={false} />
+                        <XAxis dataKey="ds" tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dy={10}
+                          tickFormatter={(v: string) => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
+                        <YAxis tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dx={-10} />
+                        <Tooltip
+                          contentStyle={{ background: t.bgCard, border: `1px solid ${t.bgCardBorder}`, borderRadius: 12, color: t.textPrimary, padding: '12px 16px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+                          itemStyle={{ color: t.textPrimary, fontWeight: 600, paddingBottom: 4 }}
+                          labelStyle={{ color: t.textSecondary, marginBottom: 8, fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                        />
+                        <Area type="monotone" dataKey="yhat_upper" stroke="none" fill={`${t.accent3}15`} />
+                        <Area type="monotone" dataKey="yhat_lower" stroke="none" fill={t.bgCard} />
+                        <Line type="monotone" dataKey="yhat" stroke={t.accent3} strokeWidth={3} dot={false} />
+                        {forecastResult.forecast.some(p => p.actual != null) && (
+                          <Line type="monotone" dataKey="actual" stroke={t.accent2} strokeWidth={2} dot={{ r: 3, fill: t.bgCard, stroke: t.accent2, strokeWidth: 2 }} strokeDasharray="4 4" />
+                        )}
+                      </AreaChart>
                     </ResponsiveContainer>
                   </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
 
-        {/* ===== FORECAST ===== */}
-        {forecastResult && (
-          <div style={{ marginBottom: 40, position: 'relative', zIndex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <TrendingUp style={{ width: 22, height: 22, color: t.accent3 }} />
-              <h2 style={{ fontSize: 22, fontWeight: 700, margin: 0 }}>Forecast</h2>
-            </div>
-            <div style={{
-              background: t.bgCard, border: `1px solid ${t.bgCardBorder}`,
-              borderRadius: 16, padding: 28,
-            }}>
-              <h3 style={{ fontSize: 14, fontWeight: 600, marginBottom: 16, color: t.textPrimary }}>
-                {forecastResult.value_column} — {forecastResult.period}-Day Forecast
-              </h3>
-              <div style={{ width: '100%', height: 240 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={forecastResult.forecast}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}20`} />
-                    <XAxis dataKey="ds" tick={{ fill: t.textMuted, fontSize: 9 }}
-                      tickFormatter={(v: string) => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
-                    <YAxis tick={{ fill: t.textMuted, fontSize: 10 }} />
-                    <Tooltip
-                      contentStyle={{ background: t.bg, border: `1px solid ${t.bgCardBorder}`, borderRadius: 8 }}
-                      labelStyle={{ color: t.textPrimary }}
-                    />
-                    <Area type="monotone" dataKey="yhat_upper" stroke="none" fill={`${t.accent3}15`} />
-                    <Area type="monotone" dataKey="yhat_lower" stroke="none" fill={t.bg} />
-                    <Line type="monotone" dataKey="yhat" stroke={t.accent3} strokeWidth={2} dot={false} />
-                    {forecastResult.forecast.some(p => p.actual != null) && (
-                      <Line type="monotone" dataKey="actual" stroke={t.accent1} strokeWidth={2} dot={false} strokeDasharray="4 4" />
-                    )}
-                  </AreaChart>
-                </ResponsiveContainer>
+                  {forecastResult.trend_summary && (
+                    <div
+                      className="mt-auto p-6 rounded-xl border text-base leading-relaxed"
+                      style={{
+                        background: `${t.accent3}08`,
+                        borderColor: t.bgCardBorder,
+                        color: t.textSecondary
+                      }}
+                    >
+                      <strong style={{ color: t.textPrimary }} className="block mb-2 uppercase tracking-wider text-xs">Trend Summary:</strong>
+                      {forecastResult.trend_summary}
+                    </div>
+                  )}
+                </div>
               </div>
-              {forecastResult.trend_summary && (
-                <p style={{
-                  fontSize: 13, color: t.textSecondary, marginTop: 16,
-                  padding: '12px 16px', borderRadius: 10,
-                  background: `${t.accent3}08`, border: `1px solid ${t.bgCardBorder}`,
-                  lineHeight: 1.6,
-                }}>
-                  {forecastResult.trend_summary}
-                </p>
-              )}
-            </div>
+            )}
           </div>
         )}
 
         {/* ===== FOOTER ===== */}
-        <div style={{
-          textAlign: 'center', padding: '24px 0 0',
-          borderTop: `1px solid ${t.bgCardBorder}`,
-          position: 'relative', zIndex: 1,
-        }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-            <div style={{
-              width: 28, height: 28, borderRadius: 8, display: 'flex',
-              alignItems: 'center', justifyContent: 'center',
-              background: t.headerGradient,
-            }}>
-              <Brain style={{ width: 16, height: 16, color: 'white' }} />
+        <div
+          className="relative z-10 pt-12 mt-4 border-t flex flex-col items-center justify-center gap-4 text-center"
+          style={{ borderColor: t.bgCardBorder }}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
+              style={{ background: t.headerGradient }}
+            >
+              <Brain className="w-6 h-6" style={{ color: t.bg }} />
             </div>
-            <span style={{ fontSize: 16, fontWeight: 700 }}>
-              <span style={{
-                background: t.headerGradient,
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>Insight</span>
+            <span className="text-2xl font-extrabold tracking-tight">
+              <span
+                style={{
+                  background: t.headerGradient,
+                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >Insight</span>
               <span style={{ color: t.textPrimary }}>AI</span>
             </span>
           </div>
-          <p style={{ fontSize: 11, color: t.textMuted, margin: 0 }}>
-            Generated by InsightAI • AI-Powered Dataset Analytics Platform • {dateStr}
-          </p>
+
+          <div>
+            <p className="text-base font-bold m-0" style={{ color: t.textPrimary }}>Generated by InsightAI</p>
+            <p className="text-sm m-0 mt-1" style={{ color: t.textSecondary }}>AI-Powered Dataset Analytics Platform</p>
+          </div>
         </div>
       </div>
     )
@@ -441,61 +461,68 @@ function renderChart(chart: ChartData, t: ThemeColors): React.ReactElement {
   const data = chart.data || []
   const xKey = chart.x_key || (data[0] ? Object.keys(data[0])[0] : 'x')
   const yKey = chart.y_key || (data[0] ? Object.keys(data[0])[1] : 'y')
+  const tooltipStyle = { background: t.bgCard, border: `1px solid ${t.bgCardBorder}`, borderRadius: 12, color: t.textPrimary, padding: '12px 16px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }
 
   switch (chart.chart_type) {
     case 'bar':
       return (
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}20`} />
-          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 9 }} />
-          <YAxis tick={{ fill: t.textMuted, fontSize: 10 }} />
-          <Bar dataKey={yKey} fill={t.accent1} radius={[4, 4, 0, 0]} />
+        <BarChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}30`} vertical={false} />
+          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dy={10} />
+          <YAxis tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dx={-10} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <Bar dataKey={yKey} fill={t.accent1} radius={[6, 6, 0, 0]} maxBarSize={60} />
         </BarChart>
       )
     case 'pie':
       return (
-        <PieChart>
-          <Pie data={data} dataKey={yKey} nameKey={xKey} cx="50%" cy="50%" outerRadius={80} label>
+        <PieChart margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
+          <Pie data={data} dataKey={yKey} nameKey={xKey} cx="50%" cy="50%" innerRadius={90} outerRadius={130} label={{ fill: t.textPrimary, fontSize: 13, fontWeight: 500 }}>
             {data.map((_, idx) => (
-              <Cell key={idx} fill={chartColors[idx % chartColors.length]} />
+              <Cell key={idx} fill={chartColors[idx % chartColors.length]} stroke={t.bgCard} strokeWidth={3} />
             ))}
           </Pie>
+          <Tooltip contentStyle={tooltipStyle} />
         </PieChart>
       )
     case 'line':
       return (
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}20`} />
-          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 9 }} />
-          <YAxis tick={{ fill: t.textMuted, fontSize: 10 }} />
-          <Line type="monotone" dataKey={yKey} stroke={t.accent1} strokeWidth={2} dot={false} />
+        <LineChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}30`} vertical={false} />
+          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dy={10} />
+          <YAxis tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dx={-10} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <Line type="monotone" dataKey={yKey} stroke={t.accent1} strokeWidth={4} dot={{ r: 5, fill: t.bgCard, stroke: t.accent1, strokeWidth: 3 }} activeDot={{ r: 8 }} />
         </LineChart>
       )
     case 'histogram':
       return (
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}20`} />
-          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 9 }} />
-          <YAxis tick={{ fill: t.textMuted, fontSize: 10 }} />
-          <Bar dataKey={yKey} fill={t.accent2} radius={[4, 4, 0, 0]} />
+        <BarChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}30`} vertical={false} />
+          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dy={10} />
+          <YAxis tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dx={-10} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <Bar dataKey={yKey} fill={t.accent2} radius={[6, 6, 0, 0]} maxBarSize={70} />
         </BarChart>
       )
     case 'scatter':
       return (
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}20`} />
-          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 9 }} />
-          <YAxis tick={{ fill: t.textMuted, fontSize: 10 }} />
-          <Line type="monotone" dataKey={yKey} stroke={t.accent3} strokeWidth={0} dot={{ fill: t.accent3, r: 3 }} />
+        <LineChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}30`} vertical={false} />
+          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} type="number" dy={10} />
+          <YAxis tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dx={-10} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <Line type="monotone" dataKey={yKey} stroke={t.accent3} strokeWidth={0} dot={{ fill: t.accent3, r: 6 }} activeDot={{ r: 9 }} />
         </LineChart>
       )
     default:
       return (
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}20`} />
-          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 9 }} />
-          <YAxis tick={{ fill: t.textMuted, fontSize: 10 }} />
-          <Bar dataKey={yKey} fill={t.accent1} radius={[4, 4, 0, 0]} />
+        <BarChart data={data} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke={`${t.textMuted}30`} vertical={false} />
+          <XAxis dataKey={xKey} tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dy={10} />
+          <YAxis tick={{ fill: t.textMuted, fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dx={-10} />
+          <Tooltip contentStyle={tooltipStyle} />
+          <Bar dataKey={yKey} fill={t.accent1} radius={[6, 6, 0, 0]} />
         </BarChart>
       )
   }
