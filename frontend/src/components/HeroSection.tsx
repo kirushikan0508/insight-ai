@@ -26,14 +26,15 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
+          className="inline-flex items-center gap-3 rounded-full mb-8"
           style={{
             background: 'rgba(139, 92, 246, 0.1)',
             border: '1px solid rgba(139, 92, 246, 0.2)',
+            padding: '10px 24px',
           }}
         >
-          <Sparkles className="w-4 h-4" style={{ color: '#8b5cf6' }} />
-          <span className="text-sm font-medium" style={{ color: '#c4b5fd' }}>
+          <Sparkles className="w-5 h-5" style={{ color: '#8b5cf6' }} />
+          <span className="text-base font-medium" style={{ color: '#c4b5fd' }}>
             AI-Powered Analytics Platform
           </span>
         </motion.div>
