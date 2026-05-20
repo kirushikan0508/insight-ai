@@ -13,11 +13,14 @@ import MLPredictions from '@/components/MLPredictions'
 import ForecastPanel from '@/components/ForecastPanel'
 import AIChatPanel from '@/components/AIChatPanel'
 import { ProcessingSteps } from '@/components/LoadingStates'
+import ReportGeneratorModal from '@/components/ReportGeneratorModal'
+import { Wand2 } from 'lucide-react'
 
 export default function App() {
   const [appState, setAppState] = useState<AppState>('idle')
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [processingStep, setProcessingStep] = useState(0)
+  const [showReportModal, setShowReportModal] = useState(false)
 
   // Data states
   const [overview, setOverview] = useState<DatasetOverview | null>(null)
@@ -154,6 +157,38 @@ export default function App() {
 
       {/* AI Chat */}
       <AIChatPanel sessionId={sessionId} onSend={handleChat} />
+
+      {/* Generate Report FAB */}
+      <AnimatePresence>
+        {appState === 'ready' && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowReportModal(true)}
+            className="fixed bottom-24 right-6 z-40 flex items-center gap-2 px-5 py-3 rounded-full text-white font-semibold shadow-lg"
+            style={{
+              background: 'linear-gradient(135deg, #8b5cf6, #3b82f6)',
+              boxShadow: '0 8px 30px rgba(139, 92, 246, 0.4)',
+            }}
+          >
+            <Wand2 className="w-5 h-5" />
+            <span className="hidden sm:inline">Generate AI Report</span>
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      <ReportGeneratorModal
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+        overview={overview}
+        charts={charts}
+        insights={insights}
+        mlResult={mlResult}
+        forecastResult={forecastResult}
+      />
 
       {/* Footer */}
       <footer className="py-8 text-center" style={{ borderTop: '1px solid var(--color-border)' }}>
